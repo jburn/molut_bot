@@ -8,7 +8,6 @@ Mokouksista voi halutessaan ottaa kuvan, sekä ilmoittaa kuvan yhteydessä molue
 
 DB_PATH = "./mokous_database.db"
 
-
 MAITO = ["maito"]
 
 MIEDOT = [
@@ -33,9 +32,8 @@ KOVAT = [
 
 COMMANDS = {
     "/help": "Listaa kaikki komennot",
-    "/juoma": "Arpoo valitunlaisen juoman (TOIMII VAIN YKSITYISVIESTILLÄ)",
+    "/kirottu": "Arpoo valitunlaisen siunatun juomayhdistelmän (TOIMII VAIN YKSITYISVIESTILLÄ)",
     "/ohjesaanto": "Lähettää mokousohjesäännön yksityisviestinä",
-    "/mokous": "Tallentaa mokouksen tietoineen mietokantaan",
+    "/mokous": "Tallentaa mokouksen tietoineen mietokantaan KÄYTTÖ: /mokous paikka,mindeksi",
     "/mokoukset": "Hakee tiedot kaikista tiedossa olevista mokouksista"
 }
-
