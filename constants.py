@@ -27,11 +27,14 @@ KOVAT = [
     "gambina",
     "marjakossu",
     "salmari",
-    "minttu"
+    "minttu",
+    "konjakki",
+    " absintti"
 ]
 
 COMMANDS = {
     "/help": "Listaa kaikki komennot",
+    "/molut": "molut",
     "/kirottu": "Arpoo valitunlaisen siunatun juomayhdistelmän (TOIMII VAIN YKSITYISVIESTILLÄ)",
     "/ohjesaanto": "Lähettää mokousohjesäännön yksityisviestinä",
     "/mokous": "Tallentaa mokouksen tietoineen mietokantaan KÄYTTÖ: /mokous paikka,mindeksi",

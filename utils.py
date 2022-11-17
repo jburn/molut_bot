@@ -71,32 +71,38 @@ def get_filedata(path: str):
         return
     return data
 
-def drink_command(key: str):
+def drink_command(key= None):
     """Random drink creator for for the drink command
 
     Args:
         key (str): what kind of drink we are creating
 
     Returns:
-        str: created drink (or error message)
+        equ (str): equation for created drink (or error message)
+        res (str): only the result for created drink (or error message)
     """    
+    if not key:
+        key = random_choice(["mieto", "kova", "macktail"])
     if key == "mieto":
         maito = random_choice(MAITO)
         mieto = random_choice(MIEDOT)
-        msg = f"{maito} + {mieto.strip()}\n= {maito[0] + mieto[1:]}"
+        equ = f"{maito} + {mieto.strip()}\n= {maito[0] + mieto[1:]}"
+        res = f"{maito[0] + mieto[1:]}"
     elif key == "kova":
         maito = random_choice(MAITO)
         kova = random_choice(KOVAT)
-        msg = f"{maito} + {kova}\n= {maito[0] + kova[1:]}"
+        equ = f"{maito} + {kova.strip()}\n= {maito[0] + kova[1:]}"
+        res = f"{maito[0] + kova[1:]}"
     elif key == "macktail":
         maito = random_choice(MAITO)
         mieto = random_choice(MIEDOT)
         kova = random_choice(KOVAT)
-        msg = f"{maito} + {mieto.strip()} + {kova}\n= {maito[0] + mieto[1] + kova[2:]}"
+        equ = f"{maito} + {mieto.strip()} + {kova.strip()}\n= {maito[0] + mieto[1] + kova[2:]}"
+        res = f"{maito[0] + mieto[1] + kova[2:]}"
     else:
         logging.error(f"invalid juoma button callback data: {key}")
-        msg = "Fatal backend error :D"
-    return msg
+        equ, res = "Fatal backend error", ":D"
+    return equ, res
 
 def isfloat(num: str):
     """Check if string is a viable float

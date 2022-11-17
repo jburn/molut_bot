@@ -21,10 +21,31 @@ def greet(update: Update, context: CallbackContext):
     if not stickerset:
         stickerset = context.bot.get_sticker_set("molutpack")
         logging.info(f"stickerset {stickerset.title} get successful")
-    
     rand_sticker = random_choice(stickerset.stickers)
     context.bot.send_sticker(chat_id=update.effective_chat.id, sticker=rand_sticker)
     logging.info(f"greeted chat: {update.effective_chat.id} with sticker {rand_sticker.file_id}")
+
+def basic(update: Update, context: CallbackContext):
+    """Chat spam command handler
+
+    Args:
+        update (Update): telegram client update
+        context (CallbackContext): telegram context
+    """
+    global stickerset
+    if not stickerset:
+        stickerset = context.bot.get_sticker_set("molutpack")
+        logging.info(f"stickerset {stickerset.title} get successful")
+
+    action = random_choice(range(0,2))
+    if action == 0:
+        rand_sticker = random_choice(stickerset.stickers)
+        context.bot.send_sticker(chat_id=update.effective_chat.id, sticker=rand_sticker)
+        logging.info(f"spammed chat: {update.effective_chat.id} with sticker {rand_sticker.file_id}")
+    elif action == 1:
+        equ, res = drink_command()
+        context.bot.send_message(chat_id=update.effective_chat.id, text=res)
+        logging.info(f"spammed chat: {update.effective_chat.id} with msg: {res}")
 
 
 def help(update: Update, context: CallbackContext):
@@ -92,7 +113,7 @@ def meetings(update: Update, context: CallbackContext):
         msg = "Ei tallennettuja mokouksia!"
     else:
         total = sum([float(m[2]) for m in mokouslist])
-        avg = f"{(total/count):.02}"
+        avg = f"{(total/count):.02f}"
         msg = f"Mokouksia yhteensä: {count}\nKeskiverto mindeksi: {avg}"
     logging.info(f"sent mokous summary ({msg}) to chat: {update.effective_chat.id}")
     context.bot.send_message(chat_id=update.effective_chat.id, text=msg)
@@ -109,7 +130,7 @@ def button(update: Update, context: CallbackContext):
     command = query['cmd']
     action = query['action']
     if command == "juoma":
-        msg = drink_command(action)
+        msg, res = drink_command(action)
         update.callback_query.edit_message_text(f"{action} juoma:\n{msg}")
         logging.info(f"created drink: {msg} for user: {update.effective_chat.id}")
     else:
@@ -153,6 +174,7 @@ def guidelines(update: Update, context: CallbackContext):
 
 handlers = [
     CommandHandler('help', help),
+    CommandHandler('molut', basic),
     CommandHandler('ohjesaanto', guidelines),
     CommandHandler('mokous', meeting),
     CommandHandler('mokoukset', meetings),
